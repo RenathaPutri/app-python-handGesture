@@ -6,10 +6,8 @@ from gtts import gTTS
 from playsound import playsound
 import warnings
 
-# Matikan warning biar layar bersih
 warnings.filterwarnings("ignore", category=UserWarning)
 
-# Inisialisasi Mediapipe Hands
 mpHands = mp.solutions.hands
 hands = mpHands.Hands(min_detection_confidence=0.7, min_tracking_confidence=0.7)
 
@@ -17,7 +15,6 @@ cap = cv2.VideoCapture(0)
 
 last_trigger = 0
 
-# Fungsi buat ngomong
 def speak(text):
     tts = gTTS(text=text, lang="id")
     filename = "temp.mp3"
@@ -30,7 +27,7 @@ while True:
     if not success:
         continue
 
-    # Balikin kamera biar ga mirror
+  
     img = cv2.flip(img, 1)
 
     imgRGB = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
@@ -51,7 +48,7 @@ while True:
             total_fingers = sum(finger_up)
             current_time = time.time()
 
-            if current_time - last_trigger > 3:  # delay 3 detik
+            if current_time - last_trigger > 3:
                 if finger_up == [1, 0, 0, 0, 0]:
                     speak("halo")
                 elif finger_up == [0, 1, 0, 0, 0]:
@@ -59,7 +56,7 @@ while True:
                 elif finger_up == [0, 1, 1, 0, 0]:
                     speak("aku")
                 elif finger_up == [1, 1, 1, 1, 1]:
-                    speak("dewi naziyah")
+                    speak("Renatha Putri")
 
                 last_trigger = current_time
 
